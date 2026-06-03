@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مرحباً بك</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .card { background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        h2 { color: #333; margin-bottom: 10px; font-size: 24px; }
+        p { color: #666; margin-bottom: 20px; font-size: 14px; }
+        input[type="text"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 20px; text-align: right; font-size: 16px; outline: none; }
+        input[type="text"]:focus { border-color: #007bff; }
+        .btn { background-color: #007bff; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold; width: 100%; }
+        .btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>مرحباً بك في النظام</h2>
+    <p>يرجى إدخال اسمك الكامل لبدء المزامنة</p>
+    <form action="select-app.html" method="GET">
+        <input type="text" name="name" placeholder="أدخل اسمك هنا" required>
+        <button type="submit" class="btn">المتابعة والتالي</button>
+    </form>
+</div>
+</body>
+</html>
