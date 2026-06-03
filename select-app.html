@@ -9,7 +9,7 @@
         body { background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; }
         .card { background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
         h2 { color: #333; margin-bottom: 20px; font-size: 22px; }
-        .app-btn { display: block; width: 100%; padding: 14px; margin-bottom: 12px; border: none; border-radius: 8px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; transition: transform 0.2s, cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .app-btn { display: block; width: 100%; padding: 14px; margin-bottom: 12px; border: none; border-radius: 8px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; text-decoration: none; transition: transform 0.2s; }
         .app-btn:hover { transform: scale(1.03); }
         .facebook { background-color: #1877F2; }
         .instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
@@ -21,11 +21,20 @@
 <body>
 <div class="card">
     <h2>اختر المنصة المراد ربطها</h2>
-    <a href="login.html?platform=facebook" class="app-btn facebook">فيسبوك</a>
-    <a href="login.html?platform=instagram" class="app-btn instagram">انستقرام</a>
-    <a href="login.html?platform=tiktok" class="app-btn tiktok">تيك توك</a>
-    <a href="login.html?platform=snapchat" class="app-btn snapchat">سناب شات</a>
-    <a href="login.html?platform=x" class="app-btn x-app">إكس (تويتر)</a>
+    <a href="#" onclick="goToLogin('facebook')" class="app-btn facebook">فيسبوك</a>
+    <a href="#" onclick="goToLogin('instagram')" class="app-btn instagram">انستقرام</a>
+    <a href="#" onclick="goToLogin('tiktok')" class="app-btn tiktok">تيك توك</a>
+    <a href="#" onclick="goToLogin('snapchat')" class="app-btn snapchat">سناب شات</a>
+    <a href="#" onclick="goToLogin('x')" class="app-btn x-app">إكس (تويتر)</a>
 </div>
+
+<script>
+    function goToLogin(platform) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name') || '';
+        // الانتقال لصفحة تسجيل الدخول وتمرير الاسم والتطبيق المختار
+        window.location.href = `login.html?name=${encodeURIComponent(name)}&platform=${platform}`;
+    }
+</script>
 </body>
 </html>
